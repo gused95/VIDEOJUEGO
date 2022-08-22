@@ -1,0 +1,62 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+#top {
+    width: 100vw;
+    height:10rem;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    color: dodgerblue;
+    padding-left: 1rem;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+.fondo {
+    width: 100vw;
+    height: 50rem;
+    background-image: url(./images/gato-celoso.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.grupoBotones {
+    width: 320px;
+    height: 300px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/* estilo de botones */
+.button {
+    background-color: rgb(27, 89, 212);
+    font-size: 28px;
+    color: white;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 10px;
+    border-color: black;
+    border-style: solid;
+    border-width: 5px;
+}
+
+.button:hover {
+    background-color: rgba(0, 0,0,0.8);
+}
+/* termina estilo botones */
+
