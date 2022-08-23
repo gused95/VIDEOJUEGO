@@ -6,18 +6,18 @@
     font-weight: bold;
 }
 
-#top {
+#header {
     width: 100vw;
     height:10rem;
     display: flex;
     align-items: center;
     background-color: black;
-    color: dodgerblue;
     padding-left: 1rem;
 }
 
 h1 {
     font-size: 5rem;
+    color: dodgerblue;
 }
 
 .fondo {
