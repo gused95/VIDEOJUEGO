@@ -1,5 +1,18 @@
 // --------------   MICHI CATCH -----------------
 
+// let btnStart = document.querySelector(".start"); // Para el botón de START
+
+// btnStart.addEventListener("click", () => {
+//     console.log("inicia el juegooooooooo");
+//     clearInterval(IdInterval);
+//     iniciarJuego();
+//   });
+
+// IdInterval
+// let IdInterval;
+
+
+
 // Imagenes
 const fondo = new Image();
 fondo.src = "images/refri.jpg";
@@ -38,6 +51,7 @@ class Michi {
         this.color = color;
         this.vida = vida;
         this.imagen = imagen;
+        this.alegria = 0;
         
     }
     derecha(){
@@ -103,14 +117,14 @@ function dibujarFondo() {
 
 // MOSTRAR DATOS: ---> NOMBRE DEL JUEGO, MICHI'S LIFE, 
 
-function mostrarDatos() { 
+function mostrarDatos(alegria,vida) { 
     //Estilo
     ctx.fillStyle = "black";
     ctx.font = "24px Arial";
     //vida
-    ctx.fillText("Michi", 10, 30);
+    ctx.fillText(`Michi:${vida}`, 10, 30);
     // hambre
-    // ctx.fillText("Panza", 310, 500);
+    ctx.fillText(`A:${alegria}`, 310, 500);
     // michiPuntos
     ctx.fillText("MP:", 10, 70);
     // vida, hambre, puntos
@@ -158,14 +172,14 @@ function crearPosho(){
 
     if (num === 3 && num2 >= 50){
         const posho = new Posho (num2, 90, 40, 40, "blue", "", poshoImg);
-        rotten.push(posho); // Envia un elemento al array comida
+        comida.push(posho); // Envia un elemento al array comida
     }
 };
 
 
 function iniciarJuego() {
 
-    const michi = new Michi(20, 500, 40, 60, "dodgerblue", 100, pataImg);
+    const michi = new Michi(20, 500, 40, 60, "dodgerblue", 7, pataImg);
     teclas(michi);
     console.log(michi);
     
@@ -180,7 +194,7 @@ function iniciarJuego() {
         dibujarFondo();
 
         //MOSTRAR DATOS
-        mostrarDatos();
+        mostrarDatos(michi.alegria,michi.vida);
         
         //DIBUJAR MICHI
         michi.dibujarse();
@@ -188,19 +202,51 @@ function iniciarJuego() {
         // DIBUJAR ENEMIGOS/ELEMENTOS EXTRA
         rotten.forEach((pez, index) => {
             pez.dibujarse();
+            if(
+                pez.y + pez.h >= michi.y // Impacto sup.
+                && pez.x + pez.w >= michi.x // Impacto lat. izq.
+                && pez.x <= michi.x + michi.w  //  Impacto lat. der.
+                && pez.y + pez.h <= michi.y + michi.h //lim. inf.
+                ) 
+                {
+                console.log("impacto");
+                rotten.splice(index, 1);
+                michi.vida -= 1;
+                if (michi.vida == 0){
+                    // clearInterval(idInterval); ACTIVAR CUANDO SE COLOCQUE EL BOTON START
+                    alert("Michi murió :( ")
+                };
+            };
+
+            
         });
         
         //DIBUJAR POSHO
         comida.forEach((posho, index) => {
             posho.dibujarse();
+            if(
+                posho.y + posho.h >= michi.y // Impacto sup.
+                && posho.x + posho.w >= michi.x // Impacto lat. izq.
+                && posho.x <= michi.x + michi.w  //  Impacto lat. der.
+                && posho.y + posho.h <= michi.y + michi.h // limite inferior
+                ) 
+                {
+                console.log("poshito!");
+                comida.splice(index, 1);
+                michi.alegria += 1;
+                if (michi.alegria == 10){
+                    // clearInterval(idInterval); ACTIVAR CUANDO SE COLOCQUE EL BOTON START
+                    alert("Michi esta feliz :), MISSION COMPLETE!! ")
+                };
+            };
         });
 
 
 
         //DIBUJAR PEZ
-        crearPez();
+        // crearPez();
         //DIBUJAR POSHO
-        crearPosho();
+        crearPosho(); //DISABLED
     
     }, 1000 / 30);
 
