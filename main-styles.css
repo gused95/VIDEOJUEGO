@@ -7,14 +7,36 @@
 	width: 100vw;
 	height: 100vh;
 	background-image: url(images/sala.webp);
+	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
+
+	/* MEJORAS */
+	background-attachment: fixed;
+	background-color: blue;
+	overflow-y: hidden; /* Hide vertical scrollbar */
+	overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
 canvas{
 	background-color: violet;
 	position: absolute;
-	top: 180px;
-	left: 200px;
+	top: 200px;
+	left: 800px;
 	border-radius: 7px;
 }
+
+.start {
+	width: 100px;
+	height: 80px;
+	background-color: yellow;
+	position: absolute;
+	top: 810px;
+	left: 800px;
+	border-radius: 10px;
+	color: black;
+	text-align: center;
+	padding-top: 20px;
+	font-weight: bold;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }

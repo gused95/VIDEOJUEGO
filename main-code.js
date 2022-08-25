@@ -1,15 +1,15 @@
 // --------------   MICHI CATCH -----------------
 
-// let btnStart = document.querySelector(".start"); // Para el botón de START
+let btnStart = document.querySelector(".start"); // Para el botón de START
 
-// btnStart.addEventListener("click", () => {
-//     console.log("inicia el juegooooooooo");
-//     clearInterval(IdInterval);
-//     iniciarJuego();
-//   });
+btnStart.addEventListener("click", () => {
+    console.log("ready, set ... Go Michi !!");
+    clearInterval(idInterval);
+    iniciarJuego();
+  });
 
-// IdInterval
-// let IdInterval;
+// idInterval 
+let idInterval;
 
 
 
@@ -88,7 +88,9 @@ class Pez extends Michi {
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.w, this.h);
         ctx.drawImage(this.imagen, this.x, this.y, this.w, this.h);
-        this.y += 1;
+        
+        const num = Math.floor(Math.random() * 5); // genera num. aleatorios
+        this.y += num;
     }
 }
 
@@ -102,7 +104,9 @@ class Posho extends Michi {
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.w, this.h);
         ctx.drawImage(this.imagen, this.x, this.y, this.w, this.h);
-        this.y += 1;
+        
+        const num = Math.floor(Math.random() * 5); // genera num. aleatorios
+        this.y += num;
     }
 }
 
@@ -119,14 +123,14 @@ function dibujarFondo() {
 
 function mostrarDatos(alegria,vida) { 
     //Estilo
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.font = "24px Arial";
     //vida
-    ctx.fillText(`Michi:${vida}`, 10, 30);
+    ctx.fillText(`Michi's life: ${vida}`, 10, 30);
     // hambre
-    ctx.fillText(`A:${alegria}`, 310, 500);
+    ctx.fillText(`Hunger bar: ${alegria}`, 230, 30);
     // michiPuntos
-    ctx.fillText("MP:", 10, 70);
+    // ctx.fillText("MP:", 10, 70); // DISABLED !!
     // vida, hambre, puntos
 
 }
@@ -156,10 +160,10 @@ function teclas(micho) {
 //   CREAR ENEMIGOS
 
 function crearPez(){
-    const num = Math.floor(Math.random() * 125); // genera num. aleatorios
+    const num = Math.floor(Math.random() * 100); // genera num. aleatorios
     const num2 = Math.floor(Math.random() * 300); // genera num. aleatorios para el eje X
     if (num === 3 && num2 > 50){
-        const pez = new Pez (num2, 90, 40, 40, "green",0,pezImg);
+        const pez = new Pez (num2, 90, 40, 40, "rgba(0, 255, 0, 0.6)",0,pezImg);
         rotten.push(pez); // Envia un elemento al array rotten
     }
 };
@@ -167,11 +171,11 @@ function crearPez(){
 //   CREAR POSHITO
 
 function crearPosho(){
-    const num = Math.floor(Math.random() * 125); // genera num. aleatorios
+    const num = Math.floor(Math.random() * 100); // genera num. aleatorios
     const num2 = Math.floor(Math.random() * 300); // genera num. aleatorios para el eje X
 
     if (num === 3 && num2 >= 50){
-        const posho = new Posho (num2, 90, 40, 40, "blue", "", poshoImg);
+        const posho = new Posho (num2, 90, 40, 40, "rgba(0, 0, 255, 0.6)", "", poshoImg);
         comida.push(posho); // Envia un elemento al array comida
     }
 };
@@ -179,14 +183,14 @@ function crearPosho(){
 
 function iniciarJuego() {
 
-    const michi = new Michi(20, 500, 40, 60, "dodgerblue", 7, pataImg);
+    const michi = new Michi(20, 500, 40, 60, "rgba(30, 144, 255, 0.6)", 7, pataImg);
     teclas(michi);
     console.log(michi);
     
     
     // AQUI SE DIBUJA EL JUEGO
     
-    setInterval(() => {
+    idInterval = setInterval(() => {
         //BORRAR AREA
         ctx.clearRect(0, 0, 330, 210);
     
@@ -213,8 +217,8 @@ function iniciarJuego() {
                 rotten.splice(index, 1);
                 michi.vida -= 1;
                 if (michi.vida == 0){
-                    // clearInterval(idInterval); ACTIVAR CUANDO SE COLOCQUE EL BOTON START
-                    alert("Michi murió :( ")
+                    clearInterval(idInterval); //ACTIVAR CUANDO SE COLOQUE EL BOTON START
+                    alert("MICHI MURIÓ  :( ")
                 };
             };
 
@@ -235,8 +239,8 @@ function iniciarJuego() {
                 comida.splice(index, 1);
                 michi.alegria += 1;
                 if (michi.alegria == 10){
-                    // clearInterval(idInterval); ACTIVAR CUANDO SE COLOCQUE EL BOTON START
-                    alert("Michi esta feliz :), MISSION COMPLETE!! ")
+                    // clearInterval(idInterval); ACTIVAR CUANDO SE COLOCQUE EL BOTON RESTART !!!
+                    alert("MICHI ESTA SATISFECHO :D  , MISSION COMPLETE  !! ")
                 };
             };
         });
@@ -244,12 +248,12 @@ function iniciarJuego() {
 
 
         //DIBUJAR PEZ
-        // crearPez();
+        crearPez();
         //DIBUJAR POSHO
-        crearPosho(); //DISABLED
+        crearPosho(); //ENABLED
     
     }, 1000 / 30);
 
 }
 
-iniciarJuego();
+// iniciarJuego(); DISABLED: PARA PRUEBAS ANTES DE COLOCAR BOTON DE START !!
