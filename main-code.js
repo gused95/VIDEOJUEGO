@@ -32,7 +32,7 @@ heartImg.src = "images/heart.png"
 // 1.-Seleccionar canvas
 let lienzo = document.getElementById("lienzo");
 let ctx = lienzo.getContext("2d");
-// w 400 h 600
+// w 400 h 550
 
 
 //Lista de enemigos y otros elementos
@@ -132,25 +132,43 @@ function pantallaInicio() {
 //PANTALLA WIN
 
 function pantallaWin() {
+    //DIFUMINA AREA DE JUEGO
+    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    ctx.fillRect(0, 0, 400, 550);
+    
     //Estilo
-    ctx.fillStyle = "black";
-    ctx.font='bold 30px Arial';
-    ctx.lineWidth = 100;
+    ctx.fillStyle = "white";
+    ctx.font='bold 40px Arial';
 
-    //BORRAR AREA DE JUEGO
-    ctx.clearRect(0, 0, 330, 210);
-
+    
     //TEXTO
     ctx.fillText(`YOU WIN !!`, 100, 300);
-}
+};
+
+
+//PANTALLA LOOSE
+
+function pantallaLose() {
+    //DIFUMINA AREA DE JUEGO
+    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    ctx.fillRect(0, 0, 400, 550);
+    
+    //Estilo
+    ctx.fillStyle = "white";
+    ctx.font='bold 40px Arial';
+
+    
+    //TEXTO
+    ctx.fillText(`YOU LOSE :(`, 90, 300);
+};
 
 
 //  DIBUJAR FONDO
 
 function dibujarFondo() {
     ctx.fillStyle = "brown";
-    ctx.fillRect(0, 0, 400, 600);
-    ctx.drawImage(fondo,50, 50, 300, 500);
+    ctx.fillRect(0, 0, 400, 550);
+    ctx.drawImage(fondo,50, 50, 300, 550);
 }
 
 
@@ -199,7 +217,7 @@ function crearPez(){
     const num = Math.floor(Math.random() * 100); // genera num. aleatorios
     const num2 = Math.floor(Math.random() * 300); // genera num. aleatorios para el eje X
     if (num === 3 && num2 > 50){
-        const pez = new Pez (num2, 90, 40, 40, "rgba(0, 255, 0, 0.6)",0,pezImg);
+        const pez = new Pez (num2, 90, 40, 40, "rgba(0, 255, 0, 0.5)",0,pezImg);
         rotten.push(pez); // Envia un elemento al array rotten
     };
 };
@@ -211,7 +229,7 @@ function crearPosho(){
     const num2 = Math.floor(Math.random() * 300); // genera num. aleatorios para el eje X
 
     if (num === 3 && num2 >= 50){
-        const posho = new Posho (num2, 90, 40, 40, "rgba(0, 0, 255, 0.6)", "", poshoImg);
+        const posho = new Posho (num2, 90, 40, 40, "rgba(0, 0, 255, 0.5)", "", poshoImg);
         comida.push(posho); // Envia un elemento al array comida
     };
 };
@@ -219,7 +237,7 @@ function crearPosho(){
 
 function iniciarJuego() {
 
-    const michi = new Michi(20, 500, 40, 60, "rgba(30, 144, 255, 0.6)", 7, pataImg);
+    const michi = new Michi(20, 500, 40, 60, "rgba(30, 144, 255, 0.5)", 7, pataImg);
     teclas(michi);
     
     
@@ -227,7 +245,7 @@ function iniciarJuego() {
     
     idInterval = setInterval(() => {
         //BORRAR AREA DE JUEGO
-        ctx.clearRect(0, 0, 330, 210);
+        ctx.clearRect(0, 0, 400, 550);
     
         //DIBUJAR FONDO
         dibujarFondo();
@@ -257,7 +275,7 @@ function iniciarJuego() {
                 michi.vida -= 1;
                 if (michi.vida == 0){
                     clearInterval(idInterval); //ACTIVAR CUANDO SE COLOQUE EL BOTON START
-                    alert("MICHI MURIÓ  :( ");
+                    pantallaLose();
                 };
             };
 

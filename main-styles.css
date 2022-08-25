@@ -21,22 +21,26 @@
 canvas{
 	background-color: violet;
 	position: absolute;
-	top: 200px;
-	left: 800px;
+	top: 20px;
+	left: 470px;
 	border-radius: 7px;
 }
 
 .start {
-	width: 100px;
-	height: 80px;
-	background-color: yellow;
+	width: 400px;
+	height: 50px;
+	background-color: blue;
 	position: absolute;
-	top: 810px;
-	left: 800px;
+	top: 575px;
+	left: 470px;
 	border-radius: 10px;
-	color: black;
+	color: white;
 	text-align: center;
-	padding-top: 20px;
 	font-weight: bold;
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	font-size: large;
+	display: flex;
+	justify-content: center;
+	align-items: center;
   }
+  
