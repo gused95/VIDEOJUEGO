@@ -41,6 +41,12 @@ const comida = [];
 const rotten = [];
 
 
+// LLAMA PANTALLA INICIO  //////////////////////
+
+pantallaInicio();
+
+//  CLASES ///////////////////////////////////////
+
 //      MICHI --> class
 
 class Michi {
@@ -111,6 +117,34 @@ class Posho extends Michi {
     }
 }
 
+// DIBUJA PANTALLA DE INICIO //////////////////////////////
+
+function pantallaInicio() {
+    //Estilo
+    ctx.fillStyle = "black";
+    ctx.font='bold 30px Arial';
+    ctx.lineWidth = 100;
+
+    //TEXTO
+    ctx.fillText(`PRESS START`, 100, 300);
+}
+
+//PANTALLA WIN
+
+function pantallaWin() {
+    //Estilo
+    ctx.fillStyle = "black";
+    ctx.font='bold 30px Arial';
+    ctx.lineWidth = 100;
+
+    //BORRAR AREA DE JUEGO
+    ctx.clearRect(0, 0, 330, 210);
+
+    //TEXTO
+    ctx.fillText(`YOU WIN !!`, 100, 300);
+}
+
+
 //  DIBUJAR FONDO
 
 function dibujarFondo() {
@@ -142,7 +176,7 @@ function corazon() {
 }
 
 
-// ESCUCHAR TECLAS
+// ESCUCHAR TECLAS //////////////////////////////////////
 
 function teclas(micho) {
     //Recibimos un evento
@@ -159,7 +193,7 @@ function teclas(micho) {
   };
 
 
-//   CREAR ENEMIGOS
+//   CREAR ENEMIGOS ///////////////////////////
 
 function crearPez(){
     const num = Math.floor(Math.random() * 100); // genera num. aleatorios
@@ -192,7 +226,7 @@ function iniciarJuego() {
     // AQUI SE DIBUJA EL JUEGO
     
     idInterval = setInterval(() => {
-        //BORRAR AREA
+        //BORRAR AREA DE JUEGO
         ctx.clearRect(0, 0, 330, 210);
     
         //DIBUJAR FONDO
@@ -245,8 +279,8 @@ function iniciarJuego() {
                 comida.splice(index, 1);
                 michi.alegria += 1;
                 if (michi.alegria == 10){
-                    clearInterval(idInterval); //ACTIVAR CUANDO SE COLOCQUE EL BOTON RESTART !!!
-                    alert("MICHI ESTA SATISFECHO :D  , MISSION COMPLETE  !! ")
+                    clearInterval(idInterval); //ACTIVAR CUANDO SE COLOQUE EL BOTON RESTART !!!
+                    pantallaWin();
                 };
             };
         });
