@@ -3,7 +3,6 @@
 let btnStart = document.querySelector(".start"); // Para el botón de START
 
 btnStart.addEventListener("click", () => {
-    console.log("ready, set ... Go Michi !!");
     clearInterval(idInterval);
     iniciarJuego();
   });
@@ -15,7 +14,7 @@ let idInterval;
 
 // Imagenes
 const fondo = new Image();
-fondo.src = "images/refri.jpg";
+fondo.src = "images/refri.jpeg";
 
 const pataImg = new Image();
 pataImg.src ="images/huellita1.png";
@@ -25,6 +24,9 @@ pezImg.src ="images/pescado.png"
 
 const poshoImg = new Image();
 poshoImg.src = "images/posho.png"
+
+const heartImg = new Image();
+heartImg.src = "images/heart.png"
 
 
 // 1.-Seleccionar canvas
@@ -37,7 +39,6 @@ let ctx = lienzo.getContext("2d");
 
 const comida = [];
 const rotten = [];
-const vida = [];
 
 
 //      MICHI --> class
@@ -128,11 +129,16 @@ function mostrarDatos(alegria,vida) {
     //vida
     ctx.fillText(`Michi's life: ${vida}`, 10, 30);
     // hambre
-    ctx.fillText(`Hunger bar: ${alegria}`, 230, 30);
-    // michiPuntos
-    // ctx.fillText("MP:", 10, 70); // DISABLED !!
-    // vida, hambre, puntos
+    ctx.fillText(`Hunger: ${alegria} / 10`, 230, 30);
 
+}
+
+// DIBUJAR CORAZON
+
+function corazon() {
+    ctx.fillStyle = "rgba(0, 255, 0, 0.0)"
+    ctx.fillRect(155, 5, 40, 40);
+    ctx.drawImage(heartImg, 155, 5, 40, 40);
 }
 
 
@@ -141,20 +147,16 @@ function mostrarDatos(alegria,vida) {
 function teclas(micho) {
     //Recibimos un evento
     document.addEventListener("keyup", (evento) => {
-      // console.log("Tecla tocada", evento.code);
       switch (evento.code) {
-        // case "KeyF":
-        //   micho.disparar();
-        //   break;
         case "ArrowRight":
           micho.derecha();
           break;
         case "ArrowLeft":
           micho.izquierda();
           break;
-      }
+      };
     });
-  }
+  };
 
 
 //   CREAR ENEMIGOS
@@ -165,7 +167,7 @@ function crearPez(){
     if (num === 3 && num2 > 50){
         const pez = new Pez (num2, 90, 40, 40, "rgba(0, 255, 0, 0.6)",0,pezImg);
         rotten.push(pez); // Envia un elemento al array rotten
-    }
+    };
 };
 
 //   CREAR POSHITO
@@ -177,7 +179,7 @@ function crearPosho(){
     if (num === 3 && num2 >= 50){
         const posho = new Posho (num2, 90, 40, 40, "rgba(0, 0, 255, 0.6)", "", poshoImg);
         comida.push(posho); // Envia un elemento al array comida
-    }
+    };
 };
 
 
@@ -185,7 +187,6 @@ function iniciarJuego() {
 
     const michi = new Michi(20, 500, 40, 60, "rgba(30, 144, 255, 0.6)", 7, pataImg);
     teclas(michi);
-    console.log(michi);
     
     
     // AQUI SE DIBUJA EL JUEGO
@@ -199,6 +200,9 @@ function iniciarJuego() {
 
         //MOSTRAR DATOS
         mostrarDatos(michi.alegria,michi.vida);
+
+        //DIBUJAR CORAZON
+        corazon();
         
         //DIBUJAR MICHI
         michi.dibujarse();
@@ -211,14 +215,15 @@ function iniciarJuego() {
                 && pez.x + pez.w >= michi.x // Impacto lat. izq.
                 && pez.x <= michi.x + michi.w  //  Impacto lat. der.
                 && pez.y + pez.h <= michi.y + michi.h //lim. inf.
-                ) 
-                {
-                console.log("impacto");
+                )  
+
+            {
+            
                 rotten.splice(index, 1);
                 michi.vida -= 1;
                 if (michi.vida == 0){
                     clearInterval(idInterval); //ACTIVAR CUANDO SE COLOQUE EL BOTON START
-                    alert("MICHI MURIÓ  :( ")
+                    alert("MICHI MURIÓ  :( ");
                 };
             };
 
@@ -234,12 +239,13 @@ function iniciarJuego() {
                 && posho.x <= michi.x + michi.w  //  Impacto lat. der.
                 && posho.y + posho.h <= michi.y + michi.h // limite inferior
                 ) 
-                {
-                console.log("poshito!");
+                
+            {
+                
                 comida.splice(index, 1);
                 michi.alegria += 1;
                 if (michi.alegria == 10){
-                    // clearInterval(idInterval); ACTIVAR CUANDO SE COLOCQUE EL BOTON RESTART !!!
+                    clearInterval(idInterval); //ACTIVAR CUANDO SE COLOCQUE EL BOTON RESTART !!!
                     alert("MICHI ESTA SATISFECHO :D  , MISSION COMPLETE  !! ")
                 };
             };
@@ -255,5 +261,4 @@ function iniciarJuego() {
     }, 1000 / 30);
 
 }
-
-// iniciarJuego(); DISABLED: PARA PRUEBAS ANTES DE COLOCAR BOTON DE START !!
+///////////////////// FIN //////////////////////////////
