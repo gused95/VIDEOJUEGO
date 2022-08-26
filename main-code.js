@@ -1,4 +1,4 @@
-// --------------   MICHI CATCH -----------------
+// -----------------------     MICHI CATCH        -------------------------
 
 let btnStart = document.querySelector(".start"); // Para el botón de START
 
@@ -13,8 +13,8 @@ let idInterval;
 
 
 // Imagenes
-const fondo = new Image();
-fondo.src = "images/refri.jpeg";
+const fondoImg = new Image();
+fondoImg.src = "images/refri.jpeg";
 
 const pataImg = new Image();
 pataImg.src ="images/huellita1.png";
@@ -45,17 +45,17 @@ const rotten = [];
 
 pantallaInicio();
 
+
 //  CLASES ///////////////////////////////////////
 
 //      MICHI --> class
 
 class Michi {
-    constructor(x, y, w, h, color, vida, imagen) {
+    constructor(x, y, w, h, vida, imagen) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.color = color;
         this.vida = vida;
         this.imagen = imagen;
         this.alegria = 0;
@@ -76,8 +76,6 @@ class Michi {
         
     }
     dibujarse(){
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.w, this.h);
         ctx.drawImage(this.imagen, this.x, this.y, this.w, this.h);
     }
     morirse(){}
@@ -88,12 +86,10 @@ class Michi {
 // ENEMIGO ------------->   PEZ
 
 class Pez extends Michi {
-    constructor(x, y, w, h, color, vida, imagen) {
-        super(x, y, w, h, color, vida, imagen);
+    constructor(x, y, w, h, vida, imagen) {
+        super(x, y, w, h, vida, imagen);
     }
     dibujarse() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.w, this.h);
         ctx.drawImage(this.imagen, this.x, this.y, this.w, this.h);
         
         const num = Math.floor(Math.random() * 5); // genera num. aleatorios
@@ -104,12 +100,10 @@ class Pez extends Michi {
 // PUNTOS ------------->   POSHO
 
 class Posho extends Michi {
-    constructor(x, y, w, h, color, vida, imagen) {
-        super(x, y, w, h, color, vida, imagen);
+    constructor(x, y, w, h, vida, imagen) {
+        super(x, y, w, h, vida, imagen);
     }
     dibujarse() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.w, this.h);
         ctx.drawImage(this.imagen, this.x, this.y, this.w, this.h);
         
         const num = Math.floor(Math.random() * 5); // genera num. aleatorios
@@ -168,11 +162,11 @@ function pantallaLose() {
 function dibujarFondo() {
     ctx.fillStyle = "brown";
     ctx.fillRect(0, 0, 400, 550);
-    ctx.drawImage(fondo,50, 50, 300, 550);
+    ctx.drawImage(fondoImg,50, 50, 300, 550);
 }
 
 
-// MOSTRAR DATOS: ---> NOMBRE DEL JUEGO, MICHI'S LIFE, 
+// MOSTRAR DATOS: --->  MICHI'S LIFE, HUNGER (ALEGRIA)
 
 function mostrarDatos(alegria,vida) { 
     //Estilo
@@ -217,7 +211,7 @@ function crearPez(){
     const num = Math.floor(Math.random() * 100); // genera num. aleatorios
     const num2 = Math.floor(Math.random() * 300); // genera num. aleatorios para el eje X
     if (num === 3 && num2 > 50){
-        const pez = new Pez (num2, 90, 40, 40, "rgba(0, 255, 0, 0.5)",0,pezImg);
+        const pez = new Pez (num2, 90, 45, 45, 0,pezImg);
         rotten.push(pez); // Envia un elemento al array rotten
     };
 };
@@ -229,7 +223,7 @@ function crearPosho(){
     const num2 = Math.floor(Math.random() * 300); // genera num. aleatorios para el eje X
 
     if (num === 3 && num2 >= 50){
-        const posho = new Posho (num2, 90, 40, 40, "rgba(0, 0, 255, 0.5)", "", poshoImg);
+        const posho = new Posho (num2, 90, 45, 45, 0, poshoImg);
         comida.push(posho); // Envia un elemento al array comida
     };
 };
@@ -237,7 +231,7 @@ function crearPosho(){
 
 function iniciarJuego() {
 
-    const michi = new Michi(20, 500, 40, 60, "rgba(30, 144, 255, 0.5)", 7, pataImg);
+    const michi = new Michi(180, 450, 55, 65, 7, pataImg);
     teclas(michi);
     
     
@@ -259,7 +253,7 @@ function iniciarJuego() {
         //DIBUJAR MICHI
         michi.dibujarse();
 
-        // DIBUJAR ENEMIGOS/ELEMENTOS EXTRA
+        // DIBUJAR PECES
         rotten.forEach((pez, index) => {
             pez.dibujarse();
             if(
