@@ -1,3 +1,5 @@
+///////          JUST FOR THE MODAL         ////////////////
+
 // Get the modal
 var modal = document.getElementById("myModal");
 

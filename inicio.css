@@ -8,7 +8,7 @@
 
 .principal {
     width: 100vw;
-	height: 100vh;
+	  height: 100vh;
     background-image: url(./images/gato-celoso.jpeg);
     background-position: center center;
     background-repeat: no-repeat;
@@ -16,7 +16,6 @@
     
     /* MEJORAS */
 	background-attachment: fixed;
-	background-color: dodgerblue;
 	overflow-y: hidden; /* Hide vertical scrollbar */
 	overflow-x: hidden; /* Hide horizontal scrollbar */
 }
@@ -35,7 +34,7 @@ h1 {
     color: dodgerblue;
 }
 
-.fondo {
+#central {
     height: 50rem;
     display: flex;
     justify-content: flex-start;
@@ -55,6 +54,7 @@ h1 {
 
 
 /* estilo de botones */
+
 .button {
     background-color: rgb(27, 89, 212);
     font-size: 28px;
@@ -74,9 +74,7 @@ h1 {
     background-color: rgba(0, 0,0,0.8);
 }
 
-a:visited {
-    color: none;
-  }
+
 /* termina estilo botones */
 
 
@@ -158,9 +156,20 @@ a:visited {
 }
 
 
-/* CONTENIDO MODAL ABOUT */
+/* CONTENIDO MODAL */
 
-.modal-content {
+.center-flex {
+  display: flex;
+  justify-content: center;
+}
+
+.controls {
+    height: 20rem;
+    width:  20rem;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
     text-align: center;
 }
 
